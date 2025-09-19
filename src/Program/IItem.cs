@@ -6,7 +6,4 @@ public interface IItem
     public int Attack;
     public int Defense;
     public bool IsMagical;
-
-    public void AddToCharacter(ICharacter);
-    public void RemoveToCharacter(ICharacter);
 }
