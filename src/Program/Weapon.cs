@@ -1,0 +1,17 @@
+namespace Program;
+
+public class Weapon: IItem
+{
+    public string Name { get; set; }
+    public int Attack { get; set; }
+    public int Defense { get; set; }
+    public bool IsMagical { get; set; }
+
+    public Weapon(string unNombre, int attack, int defense, bool isMagical)
+    {
+        this.Name = unNombre;
+        this.Attack = attack;
+        this.Defense = defense;
+        this.IsMagical = isMagical;
+    }
+}

@@ -1,1 +1,8 @@
-﻿Console.WriteLine("Hello, World!");
+﻿namespace Program;
+
+class Program
+{
+    static void Main(string[] args)
+    {
+    }
+}
