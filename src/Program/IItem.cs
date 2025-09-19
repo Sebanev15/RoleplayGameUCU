@@ -2,8 +2,8 @@ namespace Program;
 
 public interface IItem
 {
-    public string Name;
-    public int Attack;
-    public int Defense;
-    public bool IsMagical;
+    public string Name { get; set; }
+    public int Attack{ get; set; }
+    public int Defense{ get; set; }
+    public bool IsMagical{ get; set; }
 }
