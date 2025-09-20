@@ -69,6 +69,12 @@ public class Elve : ICharacter
         }
         else
         {
+            //Al ser mágicos los elfos, cada item cuyo atributo IsMagical sea true va a tener su ataque y defensa aumentado al ser añadido a un Elve
+            if (itemAdded.IsMagical == true)
+            {
+                itemAdded.Attack *= 2;
+                itemAdded.Defense *= 2;
+            }
             this.Items.Add(itemAdded);    
         }
     }
