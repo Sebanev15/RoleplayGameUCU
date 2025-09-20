@@ -9,12 +9,12 @@ public class Healing: IItem
     public bool IsHealing { get; set; }
     public int HealValue { get; set; }
 
-    public Healing(string unNombre,int defense, int healValue)
+    public Healing(string unNombre,int defense, int healValue, bool isMagical)
     {
         this.Name = unNombre;
         this.Attack = 0;
         this.Defense = defense;
-        this.IsMagical = false;
+        this.IsMagical = isMagical;
         this.IsHealing = true;
         this.HealValue = healValue;
     }
