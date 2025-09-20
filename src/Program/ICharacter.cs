@@ -3,10 +3,12 @@
 public interface ICharacter
 {
     public string Name { get; set; }
-    public float Health { get; set; }
+    public double Health { get; set; }
     public List<IItem> Items { get; }
-    public int Defense { get; set; }
+    public double Defense { get; set; }
     public int Damage { get; set; }
+
+    public bool IsAlive { get; set; }
 
     public void Attack(ICharacter characterAttacked);
 
@@ -18,5 +20,5 @@ public interface ICharacter
 
     public int GetTotalDamage();
 
-    public int GetTotalDefense();
+    public double GetTotalDefense();
 }
