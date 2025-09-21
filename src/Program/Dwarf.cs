@@ -72,7 +72,7 @@ public class Dwarf: ICharacter
 
     public void AddItem(IItem itemAdded)
     {
-        // A los elfos ser muy efectivos con armas cuerpo a cuerpo,
+        // A los enanos ser muy efectivos con armas cuerpo a cuerpo,
         // se le multipica la defensa y el ataque de dicho item si es de tipo Weapon
         if (this.Items.Contains(itemAdded))
         {

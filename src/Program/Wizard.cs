@@ -12,10 +12,22 @@ public class Wizard: ICharacter
     
     public int Damage { get; set; }
     
-    public bool IsAlive { get; set; }
-    public SpellBook SpellBook { get; set; }
+    public bool IsAlive {  get
+        {
+            return IsAlive;
+        }
 
-    public Wizard(string name, double health, double defense, int damage, SpellBook spellBook)
+        set
+        {
+            if (IsAlive)
+            {
+                IsAlive = value;
+            }
+        }}
+    
+    
+
+    public Wizard(string name, double health, double defense, int damage)
     {
         this.Name = name;
         this.Health = health;
@@ -23,26 +35,28 @@ public class Wizard: ICharacter
         this.Damage = damage;
         this.IsAlive = true;
         this.Items = new List<IItem>();
-        
-
     }
 
     public void AddItem(IItem itemToAdd)
     {
-        if (this.Items.Contains(itemToAdd))
+
+        foreach (IItem item in Items)
         {
-         Console.WriteLine($"Error el arma {itemToAdd.Name} ya estaba equipada");
+            if (item.GetType()==itemToAdd.GetType())
+            {
+                Console.WriteLine($"ya tienes un item de este tipo");
+            }
+            return;
+
         }
-        else
-        {
             if (itemToAdd is SpellBook || (itemToAdd is Weapon && itemToAdd.IsMagical == true))
             {
                 itemToAdd.Attack *= 2;
                 itemToAdd.Defense *= 2;
+                itemToAdd.HealValue *= 2;
             }
 
             this.Items.Add(itemToAdd);
-        }
     }
 
     public void RemoveItem(IItem itemToRemove)
@@ -71,8 +85,19 @@ public class Wizard: ICharacter
 
     public void Heal(ICharacter characterHealed)
     {
-        
-        
+        if (characterHealed.IsAlive==true)
+        {
+            int healing = GetTotalHealing();
+            
+            characterHealed.Health += healing;
+            
+        }
+        else
+        {
+            Console.WriteLine($"{characterHealed} ya se encuentra muerto, no hay nada mas que hacer por él");
+            
+        }
+
     }
 
     public int GetTotalDamage()
@@ -96,6 +121,26 @@ public class Wizard: ICharacter
         }
 
         return totalDefense;
+    }
+    
+    public int GetTotalHealing()
+    {
+        int totalHealing = 0;
+        foreach (IItem item in Items)
+        {
+            if (item is Healing)
+            {
+                totalHealing += item.HealValue;
+                RemoveItem(item);
+            }
+            else
+            {
+                totalHealing += item.HealValue;
+            }
+            
+        }
+
+        return totalHealing;
     }
 
 }

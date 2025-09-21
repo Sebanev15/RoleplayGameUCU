@@ -12,14 +12,19 @@ class Program
         enano.AddItem(archa);
         enano.AddItem(archa);
 
-        Spell hechizo = new Spell("bola de fuego", 200, 0, 0);
-        SpellBook libro = new SpellBook("necronomicon");
-        Console.WriteLine(libro.Attack);
-        libro.AddSpell(hechizo);
-        Console.WriteLine(libro.Attack);
+        Dwarf enano2 = new Dwarf("Enanit Gonzalez", 100, 50, 200);
 
-        Wizard mago = new Wizard("gandalf", 200, 20, 10, libro);
-     
+        Weapon archa2 = new Weapon("archa", 30, 30, true);
+        
+        
+        
+        enano2.AddItem(archa2);
+        enano2.Attack(enano);
+        
+        
+       
+
+       
 
     }
 }

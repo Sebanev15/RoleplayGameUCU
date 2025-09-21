@@ -14,10 +14,7 @@ public class SpellBook:IItem
     {
         this.Name = name;
         this.Spells = new List<Spell>();
-        this.Attack = this.GetSpellDamage();
-        this.Defense = this.GetSpellDefense();
         this.IsMagical = true;
-        
     }
     
     public void AddSpell(Spell spellToAdd) 
@@ -28,10 +25,10 @@ public class SpellBook:IItem
         }
         else
         {
-            
             this.Spells.Add(spellToAdd);  
             this.Attack = this.GetSpellDamage();
             this.Defense = this.GetSpellDefense();
+            this.HealValue = this.GetSpellHealing();
         }
         
     }
@@ -43,6 +40,7 @@ public class SpellBook:IItem
             this.Spells.Remove(spellToRemove);   
             this.Attack = this.GetSpellDamage();
             this.Defense = this.GetSpellDefense();
+            this.HealValue = this.GetSpellHealing();
         }
         else
         {
@@ -56,33 +54,38 @@ public class SpellBook:IItem
         int totalDamage = 0;
         if (Spells.Count>0)
         {
-            
             foreach (Spell spell in Spells)
             {
                 totalDamage += spell.Damage;
             }
-
-            
         }
         return totalDamage;
     }
 
     private int GetSpellDefense()
     {
-        
         int totalDefense = 0;
         if (Spells.Count>0)
         {
-            
             foreach (Spell spell in Spells)
             {
                 totalDefense += spell.Defense;
             }
-
-            
         }
         return totalDefense;
-
+    }
+    
+    private int GetSpellHealing()
+    {
+        int totalHealing = 0;
+        if (Spells.Count>0)
+        {
+            foreach (Spell spell in Spells)
+            {
+                totalHealing += spell.Healing;
+            }
+        }
+        return totalHealing;
     }
 
 }
