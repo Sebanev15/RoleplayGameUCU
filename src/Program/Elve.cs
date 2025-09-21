@@ -111,4 +111,12 @@ public class Elve : ICharacter
 
         return totalDefense;
     }
+
+    public void Heal(ICharacter characterHealed)
+    {
+        foreach (IItem item in Items)
+        {
+            characterHealed.Health += item.HealValue;
+        }
+    }
 }
