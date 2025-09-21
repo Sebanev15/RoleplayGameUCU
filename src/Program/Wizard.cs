@@ -5,23 +5,25 @@ public class Wizard: ICharacter
 
     public string Name { get; set; }
     public double Health { get; set; }
-    
+    public double MaxHealth { get; set; }
     public List<IItem> Items { get; set; }
     
     public double Defense { get; set; }
     
     public int Damage { get; set; }
+
+    private bool isAlive = true;
     
     public bool IsAlive {  get
         {
-            return IsAlive;
+            return isAlive;
         }
 
         set
         {
-            if (IsAlive)
+            if (isAlive)
             {
-                IsAlive = value;
+                isAlive = value;
             }
         }}
     
@@ -49,7 +51,7 @@ public class Wizard: ICharacter
             return;
 
         }
-            if (itemToAdd is SpellBook || (itemToAdd is Weapon && itemToAdd.IsMagical == true))
+            if (itemToAdd is SpellBook || (itemToAdd is Weapon && itemToAdd.IsMagical))
             {
                 itemToAdd.Attack *= 2;
                 itemToAdd.Defense *= 2;
@@ -63,7 +65,7 @@ public class Wizard: ICharacter
     {
         if (Items.Contains(itemToRemove))
         {
-            if (itemToRemove is SpellBook || (itemToRemove is Weapon && itemToRemove.IsMagical==true))
+            if (itemToRemove is SpellBook || (itemToRemove is Weapon && itemToRemove.IsMagical))
             {
                 itemToRemove.Attack /= 2;
                 itemToRemove.Defense /= 2;
@@ -85,11 +87,19 @@ public class Wizard: ICharacter
 
     public void Heal(ICharacter characterHealed)
     {
-        if (characterHealed.IsAlive==true)
+        if (characterHealed.IsAlive)
         {
-            int healing = GetTotalHealing();
+            double healing = GetTotalHeal() +characterHealed.Health;
             
-            characterHealed.Health += healing;
+           
+            if (healing>=characterHealed.MaxHealth)
+            {
+                characterHealed.Health = characterHealed.MaxHealth;
+            }
+            else
+            {
+                characterHealed.Health += healing;
+            }
             
         }
         else
@@ -123,20 +133,14 @@ public class Wizard: ICharacter
         return totalDefense;
     }
     
-    public int GetTotalHealing()
+    public int GetTotalHeal()
     {
         int totalHealing = 0;
         foreach (IItem item in Items)
         {
-            if (item is Healing)
-            {
+            
                 totalHealing += item.HealValue;
-                RemoveItem(item);
-            }
-            else
-            {
-                totalHealing += item.HealValue;
-            }
+            
             
         }
 
