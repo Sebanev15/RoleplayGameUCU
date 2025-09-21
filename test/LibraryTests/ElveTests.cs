@@ -39,12 +39,15 @@ public class ElveTests
         public void AttackAEnemigoMuerto()
         {
             elve2.IsAlive = false;
-            using (var consoleOutput = new System.IO.StringWriter())
+            var originalConsoleOut = Console.Out;
+            var consoleOutput = new System.IO.StringWriter();
             {
                 Console.SetOut(consoleOutput);
 
                 // Intentamos atacarlo
                 elve.Attack(elve2);
+                
+                Console.SetOut(originalConsoleOut); // restauramos la consola antes de leer el texto
 
                 // Obtenemos el texto escrito en la consola
                 string output = consoleOutput.ToString().Trim();
@@ -81,13 +84,16 @@ public class ElveTests
         [Test]
         public void RemoveItemSinElItem()
         {
-            using (var consoleOutput = new System.IO.StringWriter())
+            var originalConsoleOut = Console.Out;
+            var consoleOutput = new System.IO.StringWriter();
             {
                 Console.SetOut(consoleOutput);
 
                 // Intentamos removerlo
                 elve.RemoveItem(sword);
-
+                
+                Console.SetOut(originalConsoleOut); // restauramos la consola antes de leer el texto
+                
                 // Obtenemos el texto escrito en la consola
                 string output = consoleOutput.ToString().Trim();
 
@@ -97,7 +103,7 @@ public class ElveTests
         }
         
         [Test]
-        public void HealCuraNormal()
+        public void HealExcedeElMaxHealth()
         {
             elve.AddItem(potion);
             elve2.Health = 30;
@@ -106,7 +112,7 @@ public class ElveTests
         }
         
         [Test]
-        public void HealNoExcedeElMaxHealth()
+        public void HealNoCuraNormal()
         {
             elve.AddItem(potion);
             elve2.Health = 5;
