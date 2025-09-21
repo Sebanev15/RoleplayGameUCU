@@ -72,21 +72,26 @@ public class Dwarf: ICharacter
 
     public void AddItem(IItem itemAdded)
     {
-        // A los elfos ser muy efectivos con armas cuerpo a cuerpo,
-        // se le multipica la defensa y el ataque de dicho item si es de tipo Weapon
-        if (this.Items.Contains(itemAdded))
+        //Verifico que el personaje no tenga un elemento del tipo que se intenta añadir
+        foreach (IItem item in Items)
         {
-            Console.WriteLine("ERROR " + this.Name + " ya tiene un/a " + itemAdded.Name);
-        }
-        else
-        {
-            if (itemAdded is Weapon)
+            if (item.GetType() == itemAdded.GetType())
             {
-                itemAdded.Attack *= 2;
-                itemAdded.Defense *= 2;
+                //Si llega a tener un item del mismo tipo se muestra un mensaje de error y se hace un return para salir del metodo
+                Console.WriteLine("ERROR: Ya tienes un item de tipo " + item.GetType() + " para poder añadir un/a " + itemAdded.Name + ", primero tienes que eliminar al item [" + item.Name + "] ");
+                
+                return;
             }
-            this.Items.Add(itemAdded);    
         }
+        // A los enanos ser muy efectivos con armas cuerpo a cuerpo,
+        // se le multipica la defensa y el ataque de dicho item si es de tipo Weapon
+        if (itemAdded is Weapon)
+        {
+            itemAdded.Attack *= 2;
+            itemAdded.Defense *= 2;
+        }
+        this.Items.Add(itemAdded);
+        
     }
     
     public void RemoveItem(IItem itemRemoved)
