@@ -18,9 +18,9 @@ public class Elve : ICharacter
 
         set
         {
-            if (isAlive)
+            if (isAlive && value == false)
             {
-                IsAlive = value;
+                isAlive = false;
             }
         }
     }
@@ -31,6 +31,7 @@ public class Elve : ICharacter
         this.MaxHealth = thisHealth;
         this.Defense = thisDefense;
         this.Damage = thisDamage;
+        this.Items = new List<IItem>();
     }
     
     public void Attack(ICharacter characterAttacked)
@@ -73,11 +74,13 @@ public class Elve : ICharacter
         else
         {
             //Al ser mágicos los elfos, cada item cuyo atributo IsMagical sea true va a tener su ataque y defensa aumentado al ser añadido a un Elve
+            //Tambien al tener una gran habilidad para curar los items de curacion sanaran mas.
             if (itemAdded.IsMagical == true)
             {
                 itemAdded.Attack *= 2;
                 itemAdded.Defense *= 2;
             }
+            itemAdded.HealValue *= 2;
             this.Items.Add(itemAdded);    
         }
     }
