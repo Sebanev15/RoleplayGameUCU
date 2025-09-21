@@ -6,5 +6,5 @@ public interface IItem
     public int Attack{ get; set; }
     public int Defense{ get; set; }
     public bool IsMagical{ get; set; }
-    public bool IsHealing { get; set; }
+    public int HealValue { get; set; }
 }
