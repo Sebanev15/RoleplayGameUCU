@@ -4,11 +4,12 @@ public interface ICharacter
 {
     public string Name { get; set; }
     public double Health { get; set; }
+    public double MaxHealth { get; }
     public List<IItem> Items { get; }
     public double Defense { get; set; }
     public int Damage { get; set; }
-
     public bool IsAlive { get; set; }
+    
 
     public void Attack(ICharacter characterAttacked);
 
@@ -21,4 +22,6 @@ public interface ICharacter
     public int GetTotalDamage();
 
     public double GetTotalDefense();
+
+    public int GetTotalHeal();
 }

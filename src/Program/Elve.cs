@@ -4,6 +4,7 @@ public class Elve : ICharacter
 {
     public string Name { get; set; }
     public double Health { get; set; }
+    public double MaxHealth { get; }
     public List<IItem> Items { get; }
     public double Defense { get; set; }
     public int Damage { get; set; }
@@ -26,6 +27,7 @@ public class Elve : ICharacter
     {
         this.Name = thisName;
         this.Health = thisHealth;
+        this.MaxHealth = thisHealth;
         this.Defense = thisDefense;
         this.Damage = thisDamage;
     }
@@ -112,11 +114,27 @@ public class Elve : ICharacter
         return totalDefense;
     }
 
-    public void Heal(ICharacter characterHealed)
+    public int GetTotalHeal()
     {
+        int totalHeal=0;
         foreach (IItem item in Items)
         {
-            characterHealed.Health += item.HealValue;
+            totalHeal += item.HealValue;
+        }
+
+        return totalHeal;
+    }
+
+    public void Heal(ICharacter characterHealed)
+    {
+        int totalHeal = this.GetTotalHeal();
+        if ((characterHealed.Health + totalHeal) >= characterHealed.MaxHealth)
+        {
+            characterHealed.Health = characterHealed.MaxHealth;
+        }
+        else
+        {
+            characterHealed.Health += totalHeal;
         }
     }
 }
