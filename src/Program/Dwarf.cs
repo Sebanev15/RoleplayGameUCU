@@ -8,18 +8,19 @@ public class Dwarf: ICharacter
     public List<IItem> Items { get; }
     public double Defense { get; set; }
     public int Damage { get; set; }
+    private bool isAlive = true;
     public bool IsAlive
     {
         get
         {
-            return IsAlive;
+            return isAlive;
         }
 
         set
         {
-            if (IsAlive)
+            if (isAlive)
             {
-                IsAlive = value;
+                isAlive = value;
             }
         }
     }
@@ -69,14 +70,21 @@ public class Dwarf: ICharacter
 
     public void Heal(ICharacter characterHealed)
     {
-        int totalHeal = this.GetTotalHeal();
-        if ((characterHealed.Health + totalHeal) >= characterHealed.MaxHealth)
+        if (characterHealed.IsAlive)
         {
-            characterHealed.Health = characterHealed.MaxHealth;
+            int totalHeal = this.GetTotalHeal();
+            if ((characterHealed.Health + totalHeal) >= characterHealed.MaxHealth)
+            {
+                characterHealed.Health = characterHealed.MaxHealth;
+            }
+            else
+            {
+                characterHealed.Health += totalHeal;
+            }    
         }
         else
         {
-            characterHealed.Health += totalHeal;
+            Console.WriteLine("ERROR: " + characterHealed.Name + " ya esta muerto, por lo que no se puede curar");
         }
     }
 

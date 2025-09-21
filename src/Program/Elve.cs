@@ -8,16 +8,17 @@ public class Elve : ICharacter
     public List<IItem> Items { get; }
     public double Defense { get; set; }
     public int Damage { get; set; }
+    private bool isAlive = true;
     public bool IsAlive
     {
         get
         {
-            return IsAlive;
+            return isAlive;
         }
 
         set
         {
-            if (IsAlive)
+            if (isAlive)
             {
                 IsAlive = value;
             }
