@@ -6,7 +6,7 @@ public class Armor: IItem
     public int Attack { get; set; }
     public int Defense { get; set; }
     public bool IsMagical { get; set; }
-    public bool IsHealing { get; set; }
+    public int HealValue { get; set; }
     public Armor(string unNombre, int attack, int defense, bool isMagical)
     {
         this.Name = unNombre;
