@@ -13,6 +13,6 @@ public class Armor: IItem
         this.Attack = attack;
         this.Defense = defense;
         this.IsMagical = isMagical;
-        this.IsHealing = false;
+        this.HealValue = 0;
     }
 }
