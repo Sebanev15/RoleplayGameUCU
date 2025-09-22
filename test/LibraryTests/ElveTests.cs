@@ -20,6 +20,8 @@ public class ElveTests
         [Test]
         public void AttackFunciona()
         {
+            using var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
             elve.Attack(elve2);
             double expectedDamage = elve.GetTotalDamage() - (elve2.GetTotalDefense() * 0.75);
             if (expectedDamage < 0) expectedDamage = 0;
@@ -29,6 +31,8 @@ public class ElveTests
         [Test]
         public void AttackMataAEnemigo()
         {
+            using var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
             elve2.Health = 10;
             elve2.Defense = 1;
             elve.Attack(elve2);
@@ -67,6 +71,8 @@ public class ElveTests
         [Test]
         public void AddItemNoSeDuplica()
         {
+            using var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
             elve.AddItem(sword);
             Assert.That(elve.Items.Count, Is.EqualTo(1));
             elve.AddItem(sword);
