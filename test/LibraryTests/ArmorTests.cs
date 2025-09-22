@@ -1,5 +1,3 @@
-using NUnit.Framework;
-
 namespace LibraryTests;
 using Program;
 
