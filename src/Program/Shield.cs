@@ -7,7 +7,7 @@ public class Shield: IItem
     public int Defense { get; set; }
     public bool IsMagical { get; set; }
     public int HealValue { get; set; }
-    public Shield(string unNombre, int attack, int defense, bool isMagical, bool isHealing)
+    public Shield(string unNombre, int attack, int defense, bool isMagical)
     {
         this.Name = unNombre;
         this.Attack = attack;
