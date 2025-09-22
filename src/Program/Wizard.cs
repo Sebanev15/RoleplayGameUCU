@@ -14,18 +14,21 @@ public class Wizard: ICharacter
 
     private bool isAlive = true;
     
-    public bool IsAlive {  get
+    public bool IsAlive
+    {
+        get
         {
             return isAlive;
         }
 
         set
         {
-            if (isAlive)
+            if (isAlive && value == false)
             {
-                isAlive = value;
+                isAlive = false;
             }
-        }}
+        }
+    }
     
     
 
@@ -33,6 +36,7 @@ public class Wizard: ICharacter
     {
         this.Name = name;
         this.Health = health;
+        this.MaxHealth = health;
         this.Defense = defense;
         this.Damage = damage;
         this.IsAlive = true;
@@ -55,8 +59,10 @@ public class Wizard: ICharacter
             {
                 itemToAdd.Attack *= 2;
                 itemToAdd.Defense *= 2;
-                itemToAdd.HealValue *= 2;
+               
             }
+            
+            
 
             this.Items.Add(itemToAdd);
     }
@@ -80,16 +86,39 @@ public class Wizard: ICharacter
 
     public void Attack(ICharacter characterAttacked)
     {
-        int totalDamage = this.GetTotalDamage();
-        characterAttacked.Health -= totalDamage-characterAttacked.GetTotalDefense()*0.75;
+        if (characterAttacked.IsAlive)
+        {
+            int totalDamage = this.GetTotalDamage();
 
+            double totalDefense = characterAttacked.GetTotalDefense();
+
+            double totalDamageCaused = totalDamage - (totalDefense*0.75);
+
+            if (totalDamageCaused < 0)
+            {
+                totalDamageCaused = 0;
+            }
+
+            characterAttacked.Health -= totalDamageCaused;
+        
+            Console.WriteLine("Se ha infligido un total de " + totalDamageCaused + " de daño a " + characterAttacked.Name);
+            if (characterAttacked.Health <= 0)
+            {
+                Console.WriteLine(characterAttacked.Name + " ha sido asesinado");
+                characterAttacked.IsAlive = false;
+            }    
+        }
+        else
+        {
+            Console.WriteLine("ERROR " + characterAttacked.Name + " ya esta muerto, por lo que no se lo puede atacar");
+        }
     }
 
     public void Heal(ICharacter characterHealed)
     {
         if (characterHealed.IsAlive)
         {
-            double healing = GetTotalHeal() +characterHealed.Health;
+            double healing = GetTotalHeal();
             
            
             if (healing>=characterHealed.MaxHealth)
@@ -112,7 +141,7 @@ public class Wizard: ICharacter
 
     public int GetTotalDamage()
     {
-        int totalDamage = 0;
+        int totalDamage =this.Damage;
         foreach (IItem item in Items)
         {
             totalDamage += item.Attack;
