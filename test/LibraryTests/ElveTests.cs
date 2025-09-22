@@ -20,7 +20,7 @@ public class ElveTests
         [Test]
         public void AttackFunciona()
         {
-            using var consoleOutput = new StringWriter();
+            var consoleOutput = new StringWriter();
             Console.SetOut(consoleOutput);
             elve.Attack(elve2);
             double expectedDamage = elve.GetTotalDamage() - (elve2.GetTotalDefense() * 0.75);
@@ -31,10 +31,12 @@ public class ElveTests
         [Test]
         public void AttackMataAEnemigo()
         {
-            using var consoleOutput = new StringWriter();
-            Console.SetOut(consoleOutput);
             elve2.Health = 10;
             elve2.Defense = 1;
+            
+            var consoleOutput = new StringWriter();
+            Console.SetOut(consoleOutput);
+            
             elve.Attack(elve2);
             Assert.IsFalse(elve2.IsAlive);
         }
@@ -71,7 +73,7 @@ public class ElveTests
         [Test]
         public void AddItemNoSeDuplica()
         {
-            using var consoleOutput = new StringWriter();
+            var consoleOutput = new StringWriter();
             Console.SetOut(consoleOutput);
             elve.AddItem(sword);
             Assert.That(elve.Items.Count, Is.EqualTo(1));
