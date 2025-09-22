@@ -30,9 +30,21 @@ public class DwarfTestsAdditional
         public void Heal(ICharacter target) { }
         public void AddItem(IItem item) { }
         public void RemoveItem(IItem item) { }
-        public int GetTotalDamage() => Damage;
-        public double GetTotalDefense() => Defense;
-        public int GetTotalHeal() => 0;
+
+        public int GetTotalDamage()
+        {
+            return Damage;
+        }
+
+        public double GetTotalDefense()
+        {
+            return Defense;
+        }
+
+        public int GetTotalHeal()
+        {
+            return 0;
+        } 
     }
 
     private class MockItem : IItem
